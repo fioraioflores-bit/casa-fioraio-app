@@ -4,10 +4,24 @@
 <meta name="theme-color" content="#FAF6F0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Casa Fioraio"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png">
-<style>body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FAF6F0;font-family:Georgia,'Times New Roman',serif;color:#4a3f35;text-align:center}
+<style>body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FAF6F0;font-family:Georgia,'Times New Roman',serif;color:#4a3f35;text-align:center;padding:24px}
 img{width:180px;max-width:50vw}h1{font-weight:400;letter-spacing:.12em;margin:.6em 0 .2em}p{color:#8a7d70;font-size:.95em;margin:0 0 2em}
 a.b{display:inline-block;padding:16px 38px;border-radius:40px;background:#4a3f35;color:#FAF6F0;text-decoration:none;font-size:1.1em;letter-spacing:.05em;box-shadow:0 6px 18px rgba(74,63,53,.25)}</style></head>
 <body><img src="icon-512.png" alt="Casa Fioraio"><h1>Casa Fioraio</h1><p>Centro de control</p>
-<a class="b" href="https://script.google.com/macros/s/AKfycbwtiEv5IOozKtgj4KWiOhlOfpmc5O-8y7gbtN827dduwYcVI63D6DjiE6JyRSkazY2I7A/exec">Abrir Casa Fioraio</a>
-<script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
-if(matchMedia('(display-mode: standalone)').matches||navigator.standalone)setTimeout(()=>location.href='https://script.google.com/macros/s/AKfycbwtiEv5IOozKtgj4KWiOhlOfpmc5O-8y7gbtN827dduwYcVI63D6DjiE6JyRSkazY2I7A/exec',600);</script></body></html>
+<a class="b" id="abrir" href="https://script.google.com/macros/s/AKfycbwtiEv5IOozKtgj4KWiOhlOfpmc5O-8y7gbtN827dduwYcVI63D6DjiE6JyRSkazY2I7A/exec" target="_blank" rel="noopener">Abrir Casa Fioraio</a>
+<script>
+var APP = 'https://script.google.com/macros/s/AKfycbwtiEv5IOozKtgj4KWiOhlOfpmc5O-8y7gbtN827dduwYcVI63D6DjiE6JyRSkazY2I7A/exec';
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+var standalone = matchMedia('(display-mode: standalone)').matches || !!navigator.standalone;
+var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (standalone && ios) {
+  setTimeout(function(){ location.href = APP; }, 600);
+}
+document.getElementById('abrir').addEventListener('click', function(e) {
+  if (standalone && !ios) {
+    e.preventDefault();
+    var w = window.open(APP, '_blank', 'noopener');
+    if (!w) location.href = APP;
+  }
+});
+</script></body></html>
